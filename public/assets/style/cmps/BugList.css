@@ -1,0 +1,17 @@
+.bug-list {
+    padding: 15px 0 0;
+    list-style: none;
+    display: grid;
+    align-items: center;
+    gap: 15px;
+}
+
+.bug-list li {
+    padding-inline-start: 2em;
+    display: grid;
+    grid-auto-flow: column;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+    justify-content: space-around;
+    align-items: center;
+    background-color: var(--clr1bg);
+}
