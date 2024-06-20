@@ -1,3 +1,5 @@
+import { request } from "express"
+
 const BASE_URL = '/api/bug'
 
 export const bugService = {

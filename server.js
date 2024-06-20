@@ -29,10 +29,12 @@ app.get('/api/bug', (req, res) => {
 })
 
 app.get('/api/bug/:id', (req, res) => {
-    var visitedBugs = req.cookies.visitedBugs || 0
-    res.cookie('visitedBugs', ++visitedBugs, { maxAge: 7000 })
-    console.log('req.cookies:', req.cookies)
     const { id } = req.params
+
+    var visitedBugs = req.cookies.visitedBugs || []
+    if (visitedBugs.length >= 3) res.status(401).send('You cannot access the bug, wait!')
+    if (!visitedBugs.includes(id)) visitedBugs.push(id)
+    res.cookie('visitedBugs', visitedBugs, { maxAge: 7000 })
 
     bugService.getById(id).then(bug => res.send(bug))
 })
@@ -45,7 +47,7 @@ app.put('/api/bug/:id', (req, res) => {
         description: description || '',
         severity: +severity || 0,
         createdAt: +createdAt || Date.now(),
-        labels: labels,
+        labels: labels || [],
     }
 
     bugService.save(bugToSave).then(savedBug => res.send(savedBug))
@@ -58,7 +60,7 @@ app.post('/api/bug/', (req, res) => {
         description: description || '',
         severity: +severity || 0,
         createdAt: +createdAt || Date.now(),
-        labels: labels,
+        labels: labels || [],
     }
 
     bugService.save(bugToSave).then(savedBug => res.send(savedBug))
