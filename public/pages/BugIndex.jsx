@@ -4,11 +4,13 @@ import { BugList } from '../cmps/BugList.jsx'
 import { BugFilter } from '../cmps/BugFilter.jsx'
 import { utilService } from '../services/util.service.js'
 import { GetPageBugs } from '../cmps/GetPageBugs.jsx'
+import { AddBug } from '../cmps/AddBug.jsx'
 
 const { useState, useEffect, useRef } = React
 
 export function BugIndex() {
     const [bugs, setBugs] = useState([])
+    const [isAddBug, setIsAddBug] = useState(false)
     const [labels, setLabels] = useState([])
     const [filterBy, setFilterBy] = useState(bugService.getDefaultFilter())
 
@@ -54,25 +56,26 @@ export function BugIndex() {
     }
 
     function onAddBug() {
-        const bug = {
-            title: prompt('Bug title?'),
-            severity: +prompt('Bug severity?'),
-            labels: [],
-        }
-        let label = prompt('label?(critical, need-CR, dev-branch)').split(',').join('')
-        bug.labels.push(label)
+        setIsAddBug(prev => !prev)
+        // const bug = {
+        //     title: prompt('Bug title?'),
+        //     severity: +prompt('Bug severity?'),
+        //     labels: [],
+        // }
+        // let label = prompt('label?(critical, need-CR, dev-branch)').split(',').join('')
+        // bug.labels.push(label)
 
-        bugService
-            .save(bug)
-            .then(savedBug => {
-                console.log('Added Bug', savedBug)
-                setBugs(prevBugs => [...prevBugs, savedBug])
-                showSuccessMsg('Bug added')
-            })
-            .catch(err => {
-                console.log('Error from onAddBug ->', err)
-                showErrorMsg('Cannot add bug')
-            })
+        // bugService
+        //     .save(bug)
+        //     .then(savedBug => {
+        //         console.log('Added Bug', savedBug)
+        //         setBugs(prevBugs => [...prevBugs, savedBug])
+        //         showSuccessMsg('Bug added')
+        //     })
+        //     .catch(err => {
+        //         console.log('Error from onAddBug ->', err)
+        //         showErrorMsg('Cannot add bug')
+        //     })
     }
 
     function onEditBug(bug) {
@@ -117,11 +120,12 @@ export function BugIndex() {
                 />
                 <div className="bug-index-btns">
                     <button onClick={onDownloadPdf}>Download PDF</button>
-                    <button className="add-bug" onClick={onAddBug}>
+                    <button className="add-bug-btn" onClick={onAddBug}>
                         Add Bug
                     </button>
                 </div>
                 <BugList bugs={bugs} onRemoveBug={onRemoveBug} onEditBug={onEditBug} />
+                {isAddBug && <AddBug isAddBug={onAddBug} />}
                 <GetPageBugs filterBy={filterBy} onSetFilterBy={onSetFilterBy} />
             </main>
         </section>
