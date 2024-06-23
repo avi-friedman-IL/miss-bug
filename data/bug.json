@@ -50,5 +50,16 @@
       "critical"
     ],
     "_id": "nTLX4"
+  },
+  {
+    "title": "bug",
+    "description": "",
+    "severity": 1,
+    "createdAt": 1719175921925,
+    "labels": [
+      "critical",
+      "need-CR"
+    ],
+    "_id": "2DAMr"
   }
 ]

@@ -10,8 +10,6 @@ export function BugFilter({ filterBy, onSetFilterBy, labels: availableLabels }) 
     function handelChange({ target }) {
         const field = target.name
         let value = target.value
-        console.log('name:', field)
-        console.dir(target)
 
         switch (target.type) {
             case 'number':
