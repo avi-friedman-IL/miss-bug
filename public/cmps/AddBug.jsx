@@ -51,27 +51,9 @@ export function AddBug({ isAddBug }) {
     return (
         <section className="add-bug">
             <form action="" onSubmit={onSaveBug}>
-                <input
-                    onChange={handleChange}
-                    type="text"
-                    name="title"
-                    value={title}
-                    placeholder="title"
-                />
-                <input
-                    onChange={handleChange}
-                    type="number"
-                    name="severity"
-                    value={severity}
-                    placeholder="severity"
-                />
-                <input
-                    onChange={handleLabelChange}
-                    type="text"
-                    name="labels"
-                    value={labels}
-                    placeholder="labels"
-                />
+                <input onChange={handleChange} type="text" name="title" value={title} placeholder="title"/>
+                <input onChange={handleChange} type="number" name="severity" value={severity} placeholder="severity"/>
+                <input onChange={handleLabelChange} type="text" name="labels" value={labels} placeholder="labels"/>
 
                 <button className="save-bug">save</button>
             </form>
