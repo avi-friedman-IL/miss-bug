@@ -1,0 +1,17 @@
+.bug-index {
+    color: var(--clr1);
+}
+
+.main-index {
+    display: grid;
+    gap: 20px;
+}
+
+.add-bug {
+    width: 20%;
+}
+
+button {
+    background-color: rgb(117, 173, 192);
+    color: var(--clr1);
+}

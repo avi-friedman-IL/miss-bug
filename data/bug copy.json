@@ -1,37 +1,44 @@
 [
   {
-    "_id": "9i0mL",
-    "title": "Cannot save a new car",
-    "description": "problem when clicking Save",
-    "severity": 1,
-    "createdAt": 1542107359454
-  },
-  {
-    "_id": "xx3jM",
-    "title": "Cannot save a new car",
-    "description": "problem when clicking Save",
-    "severity": 2,
-    "createdAt": 1542107359454
-  },
-  {
-    "_id": "6lDCn",
-    "title": "Cannot save a new car",
-    "description": "problem when clicking Save",
-    "severity": 1,
-    "createdAt": 1542107359454
-  },
-  {
-    "_id": "Ujz4N",
-    "title": "Cannot save a new car",
-    "description": "problem when clicking Save",
-    "severity": 1,
-    "createdAt": 1542107359454
-  },
-  {
-    "_id": "L078v",
-    "title": "Cannot save a new car",
-    "description": "problem when clicking Save",
+    "_id": "a1b2c3",
+    "title": "Fix login bug",
+    "description": "Fixing the issue causing login failures.",
     "severity": 3,
-    "createdAt": 1542107359454
+    "createdAt": 1625140800000,
+    "labels": [
+      "critical",
+      "dev-branch"
+    ]
+  },
+  {
+    "_id": "j1k2l3",
+    "title": "Update documentation",
+    "description": "Updating the project documentation for new release.",
+    "severity": 3,
+    "createdAt": 1625400000000,
+    "labels": [
+      "need-CR"
+    ]
+  },
+  {
+    "_id": "m4n5o6",
+    "title": "Refactor codebase",
+    "description": "Refactoring the codebase for better readability and maintenance.",
+    "severity": 4,
+    "createdAt": 1625486400000,
+    "labels": [
+      "dev-branch"
+    ]
+  },
+  {
+    "_id": "p7q8r9",
+    "title": "Fix security issue",
+    "description": "Addressing the security vulnerability identified in the audit.",
+    "severity": 5,
+    "createdAt": 1625572800000,
+    "labels": [
+      "critical",
+      "need-CR"
+    ]
   }
 ]

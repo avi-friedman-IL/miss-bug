@@ -11,10 +11,12 @@
 /* Components */
 @import "cmps/AppHeader.css";
 @import "cmps/UserMsg.css";
-@import "cmps/ToggleButton.css";
+@import "cmps/Home.css";
 
+@import "cmps/BugIndex.css";
 @import "cmps/BugFilter.css";
 @import "cmps/BugList.css";
 @import "cmps/BugPreview.css";
 @import "cmps/BugDetails.css";
 @import "cmps/BugEdit.css";
+@import "cmps/GetPageBugs.css";

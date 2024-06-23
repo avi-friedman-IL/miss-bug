@@ -9,12 +9,13 @@ const { useState, useEffect, useRef } = React
 
 export function BugIndex() {
     const [bugs, setBugs] = useState([])
+    const [labels, setLabels] = useState([])
     const [filterBy, setFilterBy] = useState(bugService.getDefaultFilter())
 
     const debouncedSetFilterBy = useRef(utilService.debounce(onSetFilterBy, 500))
 
     useEffect(() => {
-        loadBugs()
+        loadLabels()
     }, [])
 
     useEffect(() => {
@@ -28,8 +29,14 @@ export function BugIndex() {
         setFilterBy(prevFilter => ({ ...prevFilter, ...filterBy }))
     }
 
-    function loadBugs() {
-        bugService.query().then(setBugs)
+    function loadLabels() {
+        bugService
+            .getLabels()
+            .then(labels => setLabels(labels))
+            .catch(err => {
+                console.log(err)
+                showErrorMsg('Cannot get labels')
+            })
     }
 
     function onRemoveBug(bugId) {
@@ -52,10 +59,8 @@ export function BugIndex() {
             severity: +prompt('Bug severity?'),
             labels: [],
         }
-        for (let i = 0; i < 3; i++) {
-            let label = prompt('label?(critical, need-CR, dev-branch)')
-            bug.labels.push(label)
-        }
+        let label = prompt('label?(critical, need-CR, dev-branch)').split(',').join('')
+        bug.labels.push(label)
 
         bugService
             .save(bug)
@@ -88,15 +93,37 @@ export function BugIndex() {
             })
     }
 
+    function onDownloadPdf() {
+        bugService
+            .downloadPdf()
+            .then(() => {
+                console.log('PDF DOWNLOAD')
+                showSuccessMsg('Download pdf successfully')
+            })
+            .catch(err => {
+                console.log('err:', err)
+                showErrorMsg('Cannot download pdf')
+            })
+    }
+
     return (
-        <main className="main-layout">
+        <section className="bug-index">
             <h3>Bugs App</h3>
-            <main>
-                <BugFilter filterBy={filterBy} onSetFilterBy={debouncedSetFilterBy.current} />
-                <button onClick={onAddBug}>Add Bug</button>
+            <main className="main-index">
+                <BugFilter
+                    labels={labels}
+                    filterBy={filterBy}
+                    onSetFilterBy={debouncedSetFilterBy.current}
+                />
+                <div className="bug-index-btns">
+                    <button onClick={onDownloadPdf}>Download PDF</button>
+                    <button className="add-bug" onClick={onAddBug}>
+                        Add Bug
+                    </button>
+                </div>
                 <BugList bugs={bugs} onRemoveBug={onRemoveBug} onEditBug={onEditBug} />
-                <GetPageBugs filterBy={filterBy} onSetFilterBy={onSetFilterBy}/>
+                <GetPageBugs filterBy={filterBy} onSetFilterBy={onSetFilterBy} />
             </main>
-        </main>
+        </section>
     )
 }

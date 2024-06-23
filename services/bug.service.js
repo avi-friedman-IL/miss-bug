@@ -5,12 +5,14 @@ export const bugService = {
     getById,
     remove,
     save,
+    getLabels
 }
 const PAGE_SIZE = 3
 var bugs = utilService.readJsonFile('./data/bug.json')
 
 function query(filterBy) {
     var filteredBugs = bugs
+    if (!filterBy) return Promise.resolve(filteredBugs)
 
     if (filterBy.txt) {
         const regExp = new RegExp(filterBy.txt, 'i')
@@ -19,33 +21,21 @@ function query(filterBy) {
     if (filterBy.minSeverity) {
         filteredBugs = filteredBugs.filter(bug => bug.severity >= filterBy.minSeverity)
     }
-    if (filterBy.labels) {
-        switch (filterBy.labels) {
-            case 'critical':
-                filteredBugs = filteredBugs.filter(bug => bug.labels.includes('critical'))
-                break
-            case 'need-CR':
-                filteredBugs = filteredBugs.filter(bug => bug.labels.includes('need-CR'))
-                break
-            case 'dev-branch':
-                filteredBugs = filteredBugs.filter(bug => bug.labels.includes('dev-branch'))
-                break
-            case 'all':
-                filteredBugs = filteredBugs.filter(bug => bug)
-                break
-        }
+    if (filterBy.labels?.length) {
+        filteredBugs = filteredBugs.filter(bug => filterBy.labels.every(label => bug.labels.includes(label)))
     }
 
     if (filterBy.sortBy) {
+        var descending = filterBy.checkbox === 'true' ? -1 : 1
         switch (filterBy.sortBy) {
             case 'createdAt':
-                filteredBugs.sort((b1, b2) => b1.createdAt - b2.createdAt)
+                filteredBugs.sort((b1, b2) => (b1.createdAt - b2.createdAt) * descending)
                 break
             case 'severity':
-                filteredBugs.sort((b1, b2) => b1.severity - b2.severity)
+                filteredBugs.sort((b1, b2) => (b1.severity - b2.severity) * descending)
                 break
             case 'title':
-                filteredBugs.sort((b1, b2) => b1.title.localeCompare(b2.title))
+                filteredBugs.sort((b1, b2) => b1.title.localeCompare(b2.title) * descending)
                 break
         }
     }
@@ -77,6 +67,15 @@ function save(bugToSave) {
         bugs.push(bugToSave)
     }
     return _saveBugsToFile().then(() => bugToSave)
+}
+
+function getLabels() {
+    return query().then(bugs => {
+        const bugsLabels = bugs.reduce((acc, bug) => {
+            return [...acc, ...bug.labels]
+        }, [])
+        return [...new Set(bugsLabels)]
+    })
 }
 
 function _saveBugsToFile() {

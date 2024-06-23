@@ -13,7 +13,7 @@ export function App() {
     <Router>
       <div>
         <AppHeader />
-        <main>
+        <main className="main-layout">
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/bug" element={<BugIndex />} />

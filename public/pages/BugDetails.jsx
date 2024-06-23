@@ -21,13 +21,13 @@ export function BugDetails() {
     }, [])
 
     if (!bug) return <h1>loadings....</h1>
-    return <div>
+    return <section className="bug-details">
         <h3>Bug Details 🐛</h3>
         <h4>{bug.title}</h4>
         <p>Severity: <span>{bug.severity}</span></p>
         <p>{bug.labels.join(', ')}</p>
         <Link to="/bug">Back to List</Link>
-    </div>
+    </section>
 
 }
 

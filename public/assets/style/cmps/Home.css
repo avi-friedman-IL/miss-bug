@@ -1,7 +1,10 @@
-
 .home {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
+    display: grid;
+    grid-template-columns: 30vw 1fr 30vw;
+    text-align: center;
+}
+
+.home > * {
+    margin: 100px auto;
+    grid-column: 2;
 }

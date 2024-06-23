@@ -1,11 +1,13 @@
 .bug-filter {
     display: grid;
     grid-auto-flow: column;
+    align-items: center;
     gap: 10px;
     
     padding: 1em;
     border-radius: 3em;
-    background-color: var(--clr2bg);
+    background-image: var(--clr2bgi);
+    color: var(--clr2);
 }
 
 .bug-filter input,select {

@@ -1,6 +1,6 @@
 const { useState, useEffect } = React
 
-export function BugFilter({ filterBy, onSetFilterBy }) {
+export function BugFilter({ filterBy, onSetFilterBy, labels: availableLabels }) {
     const [filterByToEdit, setFilterByToEdit] = useState(filterBy)
 
     useEffect(() => {
@@ -8,10 +8,10 @@ export function BugFilter({ filterBy, onSetFilterBy }) {
     }, [filterByToEdit])
 
     function handelChange({ target }) {
-        const name = target.name
+        const field = target.name
         let value = target.value
-        console.log('value:', value)
-        console.log('name:', name)
+        console.log('name:', field)
+        console.dir(target)
 
         switch (target.type) {
             case 'number':
@@ -21,11 +21,27 @@ export function BugFilter({ filterBy, onSetFilterBy }) {
             case 'checkbox':
                 value = target.checked
                 break
+            default:
+                break
         }
-        setFilterByToEdit(prevFilter => ({ ...prevFilter, [name]: value }))
+        console.log('value:', value)
+        setFilterByToEdit(prevFilter => ({ ...prevFilter, [field]: value, pageIdx: 0 }))
     }
 
-    const { txt, minSeverity } = filterByToEdit
+    function handleLabelChange({ target }) {
+        const { name: label, checked: isChecked } = target
+
+        setFilterByToEdit(prevFilter => ({
+            ...prevFilter,
+            pageIdx: 0,
+            labels: isChecked
+                ? [...prevFilter.labels, label]
+                : prevFilter.labels.filter(lbl => lbl !== label),
+        }))
+    }
+
+    const { txt, minSeverity, labels } = filterByToEdit
+    console.log('labels:', labels)
     return (
         <section className="bug-filter">
             <input
@@ -45,18 +61,27 @@ export function BugFilter({ filterBy, onSetFilterBy }) {
                 id="minSeverity"
                 placeholder="min severity"
             />
-            <select name="labels" id="" onChange={handelChange}>
-                <option value="all">all</option>
-                <option value="critical">critical</option>
-                <option value="need-CR">need-CR</option>
-                <option value="dev-branch">dev-branch</option>
-            </select>
 
             <select name="sortBy" id="" onChange={handelChange}>
                 <option value="createdAt">createdAt</option>
                 <option value="title">title</option>
                 <option value="severity">severity</option>
             </select>
+
+            <input onChange={handelChange} name="checkbox" type="checkbox" />
+
+            <h3>labels:</h3>
+            {availableLabels.map(label => (
+                <label key={label}>
+                    <input
+                        type="checkbox"
+                        name={label}
+                        checked={labels.includes(label)}
+                        onChange={handleLabelChange}
+                    />
+                    {label}
+                </label>
+            ))}
         </section>
     )
 }
