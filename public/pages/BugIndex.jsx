@@ -10,7 +10,8 @@ const { useState, useEffect, useRef } = React
 
 export function BugIndex() {
     const [bugs, setBugs] = useState([])
-    const [isAddBug, setIsAddBug] = useState(false)
+    const [bugId, setBugId] = useState()
+    const [isOpenAddBug, setIsOpenAddBug] = useState(false)
     const [labels, setLabels] = useState([])
     const [filterBy, setFilterBy] = useState(bugService.getDefaultFilter())
 
@@ -25,7 +26,7 @@ export function BugIndex() {
             .query(filterBy)
             .then(bugs => setBugs(bugs))
             .catch(err => console.log(err))
-    }, [filterBy])
+    }, [filterBy,isOpenAddBug])
 
     function onSetFilterBy(filterBy) {
         setFilterBy(prevFilter => ({ ...prevFilter, ...filterBy }))
@@ -56,44 +57,13 @@ export function BugIndex() {
     }
 
     function onAddBug() {
-        setIsAddBug(prev => !prev)
-        // const bug = {
-        //     title: prompt('Bug title?'),
-        //     severity: +prompt('Bug severity?'),
-        //     labels: [],
-        // }
-        // let label = prompt('label?(critical, need-CR, dev-branch)').split(',').join('')
-        // bug.labels.push(label)
-
-        // bugService
-        //     .save(bug)
-        //     .then(savedBug => {
-        //         console.log('Added Bug', savedBug)
-        //         setBugs(prevBugs => [...prevBugs, savedBug])
-        //         showSuccessMsg('Bug added')
-        //     })
-        //     .catch(err => {
-        //         console.log('Error from onAddBug ->', err)
-        //         showErrorMsg('Cannot add bug')
-        //     })
+        setIsOpenAddBug(prev => !prev)
+        setBugId(() => false)
     }
-
-    function onEditBug(bug) {
-        const severity = +prompt('New severity?')
-        const bugToSave = { ...bug, severity }
-        bugService
-            .save(bugToSave)
-            .then(savedBug => {
-                console.log('Updated Bug:', savedBug)
-                setBugs(prevBugs =>
-                    prevBugs.map(currBug => (currBug._id === savedBug._id ? savedBug : currBug))
-                )
-                showSuccessMsg('Bug updated')
-            })
-            .catch(err => {
-                console.log('Error from onEditBug ->', err)
-                showErrorMsg('Cannot update bug')
-            })
+    
+    function onEditBug(bugId) {
+        setIsOpenAddBug(prev => !prev)
+        bugService.getById(bugId).then(bug => setBugId(bug._id))
     }
 
     function onDownloadPdf() {
@@ -125,7 +95,7 @@ export function BugIndex() {
                     </button>
                 </div>
                 <BugList bugs={bugs} onRemoveBug={onRemoveBug} onEditBug={onEditBug} />
-                {isAddBug && <AddBug isAddBug={onAddBug} />}
+                {isOpenAddBug && <AddBug isOpenAddBug={onAddBug} bugId={bugId ? bugId : false}/>}
                 <GetPageBugs filterBy={filterBy} onSetFilterBy={onSetFilterBy} />
             </main>
         </section>

@@ -1,10 +1,13 @@
+export function BugPreview({ bug }) {
+    const color = bug.severity >= 3 ? 'red' : 'gray'
 
-
-export function BugPreview({bug}) {
-
-    return <React.Fragment>
-        <h4>{bug.title}</h4>
-        <h1>🐛</h1>
-        <p>Severity: <span>{bug.severity}</span></p>
-    </React.Fragment>
+    return (
+        <React.Fragment>
+            <h4>{bug.title}</h4>
+            <h1>🐛</h1>
+            <p style={{ color: color }}>
+                Severity: <span>{bug.severity}</span>
+            </p>
+        </React.Fragment>
+    )
 }

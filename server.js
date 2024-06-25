@@ -1,3 +1,4 @@
+import path from 'path'
 import express from 'express'
 import cookieParser from 'cookie-parser'
 import fs from 'fs'
@@ -13,6 +14,8 @@ app.use(express.json())
 app.use(cookieParser())
 
 app.get('/api/bug', (req, res) => {
+    console.log('query:', req.query)
+    console.log('params:', req.params)
     const filterBy = {
         txt: req.query.txt || '',
         minSeverity: +req.query.minSeverity || 0,
@@ -46,18 +49,16 @@ app.get('/api/bug/download', (req, res) => {
     doc.pipe(fs.createWriteStream('bugs.pdf'))
     doc.fontSize(25).text('BUGS LIST').fontSize(16)
 
-    bugService.query()
-        .then((bugs) => {
-            bugs.forEach((bug) => {
-                const bugTxt = `${bug.title}: ${bug.description}. (severity: ${bug.severity})`
-                doc.text(bugTxt)
-            })
-
-            doc.end()
-            res.end()
+    bugService.query().then(bugs => {
+        bugs.forEach(bug => {
+            const bugTxt = `${bug.title}: ${bug.description}. (severity: ${bug.severity})`
+            doc.text(bugTxt)
         })
-})
 
+        doc.end()
+        res.end()
+    })
+})
 
 app.get('/api/bug/:id', (req, res) => {
     const { id } = req.params
@@ -107,6 +108,10 @@ app.post('/api/bug', (req, res) => {
     }
 
     bugService.save(bugToSave).then(savedBug => res.send(savedBug))
+})
+
+app.get('/**', (req, res) => {
+    res.sendFile(path.resolve('public/index.html'))
 })
 
 const port = 3030

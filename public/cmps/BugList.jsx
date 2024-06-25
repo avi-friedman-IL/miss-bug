@@ -13,7 +13,7 @@ export function BugList({ bugs, onRemoveBug, onEditBug }) {
                     <div>
                         <button
                             onClick={() => {
-                                onEditBug(bug)
+                                onEditBug(bug._id)
                             }}>
                             Edit
                         </button>

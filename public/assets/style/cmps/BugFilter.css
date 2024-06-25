@@ -16,3 +16,7 @@
     border-radius: 3em;
 }
 
+.bug-filter input:focus {
+    outline: none;
+}
+

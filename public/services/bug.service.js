@@ -30,7 +30,7 @@ function getLabels() {
 }
 
 function getDefaultFilter() {
-    return { txt: '', minSeverity: 0, pageIdx: 0, labels: [], sortBy: '' }
+    return { txt: '', minSeverity: '', pageIdx: 0, labels: [], sortBy: '' }
 }
 
 function getEmptyBug() {

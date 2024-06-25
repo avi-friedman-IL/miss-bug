@@ -22,5 +22,5 @@
 }
 
 .add-bug input:focus{
-    
+    outline: none;
 }

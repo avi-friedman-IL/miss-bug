@@ -22,7 +22,6 @@ export function BugFilter({ filterBy, onSetFilterBy, labels: availableLabels }) 
             default:
                 break
         }
-        console.log('value:', value)
         setFilterByToEdit(prevFilter => ({ ...prevFilter, [field]: value, pageIdx: 0 }))
     }
 
@@ -39,7 +38,6 @@ export function BugFilter({ filterBy, onSetFilterBy, labels: availableLabels }) 
     }
 
     const { txt, minSeverity, labels } = filterByToEdit
-    console.log('labels:', labels)
     return (
         <section className="bug-filter">
             <input
@@ -60,13 +58,15 @@ export function BugFilter({ filterBy, onSetFilterBy, labels: availableLabels }) 
                 placeholder="min severity"
             />
 
-            <select name="sortBy" id="" onChange={handelChange}>
-                <option value="createdAt">createdAt</option>
-                <option value="title">title</option>
-                <option value="severity">severity</option>
-            </select>
+            <div className="">
+                <select name="sortBy" id="" onChange={handelChange}>
+                    <option value="createdAt">createdAt</option>
+                    <option value="title">title</option>
+                    <option value="severity">severity</option>
+                </select>
 
-            <input onChange={handelChange} name="checkbox" type="checkbox" />
+                <input onChange={handelChange} name="checkbox" type="checkbox" />
+            </div>
 
             <h3>labels:</h3>
             {availableLabels.map(label => (
