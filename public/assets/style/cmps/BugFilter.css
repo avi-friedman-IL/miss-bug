@@ -1,9 +1,10 @@
 .bug-filter {
     display: grid;
     grid-auto-flow: column;
+    justify-items: center;
     align-items: center;
     gap: 10px;
-    
+
     padding: 1em;
     border-radius: 3em;
     background-image: var(--clr2bgi);
@@ -18,5 +19,11 @@
 
 .bug-filter input:focus {
     outline: none;
+}
+
+@media(width <= 1050px) {
+    .labels-filter {
+        grid-row: 2;
+    }
 }
 

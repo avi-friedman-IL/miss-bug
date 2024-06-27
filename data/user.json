@@ -1,0 +1,15 @@
+[
+  {
+    "username": "Avi Fridman",
+    "password": "1234",
+    "fullName": "Avi Fridman",
+    "_id": "hVgTr",
+    "isAdmin": true
+  },
+  {
+    "username": "puki",
+    "password": "1234",
+    "fullName": "puki",
+    "_id": "tcgSM"
+  }
+]

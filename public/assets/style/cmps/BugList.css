@@ -16,3 +16,21 @@
     background-image: var(--clr2bgi);
     color: var(--clr2);
 }
+
+@media (width <= 600px) {
+    .bug-list {
+        padding: 0;
+        height: 35vh;
+        overflow-y: scroll;
+    }
+    .bug-list li {
+        display: grid;
+        grid-auto-flow: row;
+        grid-template-columns: 1fr;
+        justify-items: center;
+        align-items: center;
+        gap: 10px;
+
+        padding: 0.75em;
+    }
+}

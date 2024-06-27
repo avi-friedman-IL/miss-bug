@@ -5,7 +5,7 @@ export const bugService = {
     getById,
     remove,
     save,
-    getLabels
+    getLabels,
 }
 const PAGE_SIZE = 3
 var bugs = utilService.readJsonFile('./data/bug.json')
@@ -22,7 +22,9 @@ function query(filterBy) {
         filteredBugs = filteredBugs.filter(bug => bug.severity >= filterBy.minSeverity)
     }
     if (filterBy.labels?.length) {
-        filteredBugs = filteredBugs.filter(bug => filterBy.labels.every(label => bug.labels.includes(label)))
+        filteredBugs = filteredBugs.filter(bug =>
+            filterBy.labels.every(label => bug.labels.includes(label))
+        )
     }
 
     if (filterBy.sortBy) {
@@ -42,7 +44,6 @@ function query(filterBy) {
     const startIdx = filterBy.pageIdx * PAGE_SIZE
     filteredBugs = filteredBugs.slice(startIdx, startIdx + PAGE_SIZE)
 
-    console.log(filterBy)
     return Promise.resolve(filteredBugs)
 }
 
@@ -51,19 +52,33 @@ function getById(bugId) {
     return Promise.resolve(bug)
 }
 
-function remove(bugId) {
+function remove(bugId, loggedinUser) {
     const idx = bugs.findIndex(bug => bug._id === bugId)
-    bugs.splice(idx, 1)
+    const bug = bugs[idx]
+    if (!loggedinUser.isAdmin && bug.owner._id !== loggedinUser._id) {
+        return Promise.reject('Not your bug!')
+    } else {
+        bugs.splice(idx, 1)
+    }
 
     return _saveBugsToFile()
 }
 
-function save(bugToSave) {
+function save(bugToSave, loggedinUser) {
+    console.log('bugToSave:', bugToSave)
+    console.log('loggedinUser:', loggedinUser)
     if (bugToSave._id) {
-        const idx = bugs.findIndex(bug => bug._id === bugToSave._id)
-        bugs.splice(idx, 1, bugToSave)
+        const bugToEdit = bugs.find(bug => bug._id === bugToSave._id)
+        if (!loggedinUser.isAdmin && bugToEdit.owner._id !== loggedinUser._id) {
+            return Promise.reject('Not your bug!')
+        } else {
+            bugToEdit.title = bugToSave.title
+            bugToEdit.severity = bugToSave.severity
+            bugToEdit.labels = bugToSave.labels
+        }
     } else {
         bugToSave._id = utilService.makeId()
+        bugToSave.owner = loggedinUser
         bugs.push(bugToSave)
     }
     return _saveBugsToFile().then(() => bugToSave)

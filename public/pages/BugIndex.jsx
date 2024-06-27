@@ -81,7 +81,6 @@ export function BugIndex() {
 
     return (
         <section className="bug-index">
-            <h3>Bugs App</h3>
             <main className="main-index">
                 <BugFilter
                     labels={labels}
