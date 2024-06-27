@@ -1,73 +1,60 @@
 [
   {
-    "_id": "2DAMr",
-    "title": "bug bug bug",
+    "title": "remove bug",
     "description": "",
-    "severity": 2,
-    "createdAt": 1719175921925,
-    "labels": [
-      "critical",
-      "need-CR"
-    ]
-  },
-  {
-    "_id": "j1k2l3",
-    "title": "Update documentation",
-    "description": "Updating the project documentation for new release.",
-    "severity": 3,
-    "createdAt": 1625400000000,
-    "labels": [
-      "need-CR"
-    ]
-  },
-  {
-    "_id": "m4n5o6",
-    "title": "Refactor codebase",
-    "description": "Refactoring the codebase for better readability and maintenance.",
-    "severity": 4,
-    "createdAt": 1625486400000,
+    "severity": 1,
+    "createdAt": 1719475554079,
     "labels": [
       "dev-branch"
-    ]
+    ],
+    "owner": {
+      "_id": "hVgTr",
+      "fullName": "Avi Fridman"
+    },
+    "_id": "0wxix"
   },
   {
-    "_id": "p7q8r9",
-    "title": "Fix security issue",
-    "description": "Addressing the security vulnerability identified in the audit.",
-    "severity": 5,
-    "createdAt": 1625572800000,
+    "title": "update book",
+    "description": "",
+    "severity": 4,
+    "createdAt": 1719475593863,
     "labels": [
       "critical",
       "need-CR"
-    ]
-  },
-  {
-    "title": "critical",
-    "description": "",
-    "severity": 7,
-    "createdAt": 1719145297585,
-    "labels": [
-      "critical"
     ],
-    "_id": "nTLX4"
+    "owner": {
+      "_id": "hVgTr",
+      "fullName": "Avi Fridman"
+    },
+    "_id": "LRBIW"
   },
   {
-    "_id": "dsLh6",
-    "title": "bagin",
+    "title": "add book",
+    "description": "",
+    "severity": 1,
+    "createdAt": 1719475629762,
+    "labels": [
+      "need-CR"
+    ],
+    "owner": {
+      "_id": "hVgTr",
+      "fullName": "Avi Fridman"
+    },
+    "_id": "FLxP6"
+  },
+  {
+    "title": "get books",
     "description": "",
     "severity": 3,
-    "createdAt": 1719245951212,
+    "createdAt": 1719475764771,
     "labels": [
-      "critical",
-      "need-CR"
-    ]
-  },
-  {
-    "title": "",
-    "description": "",
-    "severity": 0,
-    "createdAt": 1719328488572,
-    "labels": [],
-    "_id": "la15X"
+      "need-CR",
+      "critical"
+    ],
+    "owner": {
+      "_id": "tcgSM",
+      "fullName": "puki"
+    },
+    "_id": "RitB3"
   }
 ]

@@ -1,0 +1,13 @@
+.login-signup {
+
+}
+
+.login-signup input {
+    padding: .5em;
+    border: 0;
+    border-radius: 3em;
+}
+
+.login-signup input:focus {
+    outline: none;
+}

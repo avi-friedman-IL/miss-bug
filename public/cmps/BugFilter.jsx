@@ -68,18 +68,20 @@ export function BugFilter({ filterBy, onSetFilterBy, labels: availableLabels }) 
                 <input onChange={handelChange} name="checkbox" type="checkbox" />
             </div>
 
-            <h3>labels:</h3>
-            {availableLabels.map(label => (
-                <label key={label}>
-                    <input
-                        type="checkbox"
-                        name={label}
-                        checked={labels.includes(label)}
-                        onChange={handleLabelChange}
-                    />
-                    {label}
-                </label>
-            ))}
+            <div className="labels-filter">
+            {/* <h3>labels:</h3> */}
+                {availableLabels.map(label => (
+                    <label key={label}>
+                        <input
+                            type="checkbox"
+                            name={label}
+                            checked={labels.includes(label)}
+                            onChange={handleLabelChange}
+                        />
+                        {label}
+                    </label>
+                ))}
+            </div>
         </section>
     )
 }
