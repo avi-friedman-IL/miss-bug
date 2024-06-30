@@ -147,7 +147,7 @@ app.get('/api/user', (req, res) => {
     const loggedinUser = userService.validateToken(req.cookies.loginToken)
     // console.log('loggedinUser:', loggedinUser)
     // if(!loggedinUser?.isAdmin) return res.status(501).send('Cannot load users!')
-    
+
     userService
         .query()
         .then(users => {
@@ -206,6 +206,9 @@ app.post('/api/auth/logout', (req, res) => {
 app.get('/**', (req, res) => {
     res.sendFile(path.resolve('public/index.html'))
 })
+app.get('/**', (req, res) => {
+    res.sendFile(path.resolve('public/index.html'))
+})
 
 const PORT = process.env.PORT || 3030
-app.listen(PORT, () => loggerService.info(`Server listening on port http://127.0.0.1:${PORT}/`))
+app.listen(PORT, () => console.log(`Server listening on ${PORT} http://127.0.0.1:${PORT}/`))
