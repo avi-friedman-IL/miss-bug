@@ -4,14 +4,14 @@ const { useParams, useNavigate } = ReactRouter
 import { showSuccessMsg, showErrorMsg } from '../services/event-bus.service.js'
 import { bugService } from '../services/bug.service.js'
 
-export function AddBug({ isOpenAddBug, bugId }) {
-    const [bug, setBug] = useState({})
+export function BugEdit() {
+    const [bug, setBug] = useState(bugService.getEmptyBug())
     const params = useParams()
+    const navigate = useNavigate()
 
     useEffect(() => {
-        if (bugId) bugService.getById(bugId).then(bug => setBug(bug))
-        else setBug(bugService.getEmptyBug())
-    }, [bugId])
+        if (params.bugId) bugService.getById(params.bugId).then(bug => setBug(bug))
+    }, [params.bugId])
 
     function onSaveBug(ev) {
         ev.preventDefault()
@@ -19,13 +19,13 @@ export function AddBug({ isOpenAddBug, bugId }) {
             .save(bug)
             .then(savedBug => {
                 console.log('Added Bug', savedBug)
-                showSuccessMsg(bugId ? 'Bug edit!' : 'Bug added!')
+                showSuccessMsg(params.bugId ? 'Bug edit!' : 'Bug added!')
             })
             .catch(err => {
                 console.log('Error from onAddBug ->', err)
                 showErrorMsg('Cannot add bug')
             })
-        isOpenAddBug()
+            navigate('/bug')
     }
 
     function handleChange({ target }) {
@@ -56,7 +56,7 @@ export function AddBug({ isOpenAddBug, bugId }) {
     // if (!bug) return
     const { title, severity, labels } = bug
     return (
-        <section className="add-bug">
+        <section className="bug-edit">
             <form action="" onSubmit={onSaveBug}>
                 <input
                     onChange={handleChange}

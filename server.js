@@ -1,7 +1,7 @@
-import path from 'path'
 import express from 'express'
+// import path from 'path'
 import cookieParser from 'cookie-parser'
-// import fs from 'fs'
+import fs from 'fs'
 import PDFDocument from 'pdfkit'
 
 import { bugService } from './services/bug.service.js'
@@ -28,6 +28,7 @@ app.get('/api/bug', (req, res) => {
         .query(filterBy)
         .then(bugs => res.send(bugs))
         .catch(err => {
+            console.log('err:', err)
             loggerService.error(`Couldn't get bugs...`)
             res.status(500).send(`Couldn't get bugs...`)
         })
@@ -38,7 +39,8 @@ app.get('/api/bug/labels', (req, res) => {
         .getLabels()
         .then(labels => res.send(labels))
         .catch(err => {
-            loggerService.error(`Couldn't get labels`, err)
+            console.log('err:', err)
+            loggerService.error(`Couldn't get labels`)
             res.status(500).send(`Couldn't get labels`)
         })
 })
@@ -71,8 +73,9 @@ app.get('/api/bug/:id', (req, res) => {
         .getById(id)
         .then(bug => res.send(bug))
         .catch(err => {
+            console.log('err:', err)
             loggerService.error(`Couldn't get bug (${id})`, err)
-            res.status(500).send(`Couldn't get bug (${id})`)
+            res.status(500).send(`Couldn't get bug (${id})`, err)
         })
 })
 
@@ -85,8 +88,32 @@ app.delete('/api/bug/:id', (req, res) => {
         .remove(id, loggedinUser)
         .then(() => res.send(`Bug ${id} deleted...`))
         .catch(err => {
+            console.log('err:', err)
             loggerService.error('Cannot remove bug', err)
-            res.status(400).send('Cannot remove bug')
+            res.status(400).send('Cannot remove bug', err)
+        })
+})
+
+app.post('/api/bug', (req, res) => {
+    const loggedinUser = userService.validateToken(req.cookies.loginToken)
+    if (!loggedinUser) return res.status(401).send('Cannot add bug')
+
+    const { title, description, severity, createdAt, labels, owner } = req.body
+    const bugToSave = {
+        title: title || '',
+        description: description || '',
+        severity: +severity || 0,
+        createdAt: +createdAt || Date.now(),
+        labels: labels || [],
+        owner: owner || {},
+    }
+
+    bugService
+        .save(bugToSave, loggedinUser)
+        .then(savedBug => res.send(savedBug))
+        .catch(err => {
+            console.log('err:', err)
+            res.status(401).send('Cannot add bug')
         })
 })
 
@@ -109,26 +136,10 @@ app.put('/api/bug', (req, res) => {
         .save(bugToSave, loggedinUser)
         .then(savedBug => res.send(savedBug))
         .catch(err => {
+            console.log('err:', err)
             loggerService.error('Cannot save bug', err)
             res.status(400).send('Cannot save bug')
         })
-})
-
-app.post('/api/bug', (req, res) => {
-    const loggedinUser = userService.validateToken(req.cookies.loginToken)
-    if (!loggedinUser) return res.status(401).send('Cannot add bug')
-
-    const { title, description, severity, createdAt, labels, owner } = req.body
-    const bugToSave = {
-        title: title || '',
-        description: description || '',
-        severity: +severity || 0,
-        createdAt: +createdAt || Date.now(),
-        labels: labels || [],
-        owner: owner || {},
-    }
-
-    bugService.save(bugToSave, loggedinUser).then(savedBug => res.send(savedBug))
 })
 
 app.get('/api/user', (req, res) => {
@@ -187,9 +198,9 @@ app.post('/api/auth/logout', (req, res) => {
     res.send('logged-out!')
 })
 
-app.get('/**', (req, res) => {
-    res.sendFile(path.resolve('public/index.html'))
-})
+// app.get('/**', (req, res) => {
+//     res.sendFile(path.resolve('public/index.html'))
+// })
 
 const PORT = process.env.PORT || 3030
 app.listen(PORT, () => loggerService.info(`Server listening on port http://127.0.0.1:${PORT}/`))

@@ -1,10 +1,11 @@
-const { Link } = ReactRouterDOM
+const { Link, useNavigate } = ReactRouterDOM
 
 import { userService } from '../services/user.service.js'
 import { BugPreview } from './BugPreview.jsx'
 
-export function BugList({ bugs, onRemoveBug, onEditBug }) {
+export function BugList({ bugs, onRemoveBug }) {
     const user = userService.getLoggedinUser()
+    const navigate = useNavigate()
 
     function isOwner(bug) {
         if (!user) return false
@@ -21,12 +22,7 @@ export function BugList({ bugs, onRemoveBug, onEditBug }) {
 
                     {isOwner(bug) && (
                         <div>
-                            <button
-                                onClick={() => {
-                                    onEditBug(bug._id)
-                                }}>
-                                Edit
-                            </button>
+                            <button onClick={() => navigate(`/bug/edit/${bug._id}`)}> Edit </button>
                             <button
                                 onClick={() => {
                                     onRemoveBug(bug._id)
