@@ -47,7 +47,7 @@ export function UserProfile() {
     return (
         <section className="user-profile main-layout">
             <h1>Hello {user.fullname}</h1>
-            {user.isAdmin && <Link to="/admin">User List</Link>}
+            {/* {user.isAdmin && <Link to="/admin">User List</Link>} */}
 
             {!bugs || (!bugs.length && <h2>No bugs to show</h2>)}
             {bugs && bugs.length > 0 && <h3>Manage your bugs</h3>}

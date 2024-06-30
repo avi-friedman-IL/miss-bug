@@ -2,7 +2,7 @@
   {
     "title": "remove bug",
     "description": "",
-    "severity": 5,
+    "severity": 2,
     "createdAt": 1719475554079,
     "labels": [
       "dev-branch"

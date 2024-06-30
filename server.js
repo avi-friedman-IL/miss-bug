@@ -1,6 +1,6 @@
-import path from 'path'
 import express from 'express'
 import cookieParser from 'cookie-parser'
+import path from 'path'
 import fs from 'fs'
 import PDFDocument from 'pdfkit'
 
@@ -144,7 +144,7 @@ app.put('/api/bug', (req, res) => {
 })
 
 app.get('/api/user', (req, res) => {
-    const loggedinUser = userService.validateToken(req.cookies.loginToken)
+    // const loggedinUser = userService.validateToken(req.cookies.loginToken)
     // console.log('loggedinUser:', loggedinUser)
     // if(!loggedinUser?.isAdmin) return res.status(501).send('Cannot load users!')
 
@@ -206,11 +206,8 @@ app.post('/api/auth/logout', (req, res) => {
 app.get('/**', (req, res) => {
     res.sendFile(path.resolve('public/index.html'))
 })
-app.get('/**', (req, res) => {
-    res.sendFile(path.resolve('public/index.html'))
-})
 
 const PORT = process.env.PORT || 3030
 app.listen(PORT, () => {
-    console.log(`Server listening on ${PORT} http://127.0.0.1:${PORT}/`)
+    console.log(`Server is ready at ${PORT} http://127.0.0.1:${PORT}/`)
 })
