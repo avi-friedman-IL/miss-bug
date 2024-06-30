@@ -1,7 +1,6 @@
 const { useState, useEffect } = React
 const { Link, useParams } = ReactRouterDOM
 
-import { loggerService } from '../../services/logger.service.js'
 import { bugService } from '../services/bug.service.js'
 import { showErrorMsg } from '../services/event-bus.service.js'
 import { utilService } from '../services/util.service.js'
