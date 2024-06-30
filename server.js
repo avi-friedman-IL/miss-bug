@@ -211,4 +211,6 @@ app.get('/**', (req, res) => {
 })
 
 const PORT = process.env.PORT || 3030
-app.listen(PORT, () => console.log(`Server listening on ${PORT} http://127.0.0.1:${PORT}/`))
+app.listen(PORT, () => {
+    console.log(`Server listening on ${PORT} http://127.0.0.1:${PORT}/`)
+})
