@@ -22,9 +22,10 @@ function query(filterBy) {
         filteredBugs = filteredBugs.filter(bug => bug.severity >= filterBy.minSeverity)
     }
     if (filterBy.labels?.length) {
-        filteredBugs = filteredBugs.filter(bug =>
-            filterBy.labels.every(label => bug.labels.includes(label))
-        )
+        filteredBugs = filteredBugs.filter(bug => filterBy.labels.every(label => bug.labels.includes(label)))
+    }
+    if (filterBy.userId) {
+        filteredBugs = filteredBugs.filter(bug => bug.owner._id === filterBy.userId)
     }
 
     if (filterBy.sortBy) {

@@ -30,7 +30,7 @@ function validateToken(token) {
 }
 
 function checkLogin({ username, password }) {
-    var user = users.find(user => user.username === username)
+    var user = users.find(user => user.username === username && user.password === password)
     if (user)  {
         user = {
             _id : user._id,

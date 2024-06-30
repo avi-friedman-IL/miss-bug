@@ -22,6 +22,7 @@ app.get('/api/bug', (req, res) => {
         sortBy: req.query.sortBy || '',
         labels: req.query.labels || [],
         checkbox: req.query.checkbox || '',
+        userId: req.query.userId || '',
     }
 
     bugService
@@ -143,6 +144,10 @@ app.put('/api/bug', (req, res) => {
 })
 
 app.get('/api/user', (req, res) => {
+    const loggedinUser = userService.validateToken(req.cookies.loginToken)
+    // console.log('loggedinUser:', loggedinUser)
+    // if(!loggedinUser?.isAdmin) return res.status(501).send('Cannot load users!')
+    
     userService
         .query()
         .then(users => {

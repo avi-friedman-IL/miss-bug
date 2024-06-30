@@ -1,1 +1,1 @@
-get http://127.0.0.1:8080/api/bug
+get http://127.0.0.1:8080/api/user
