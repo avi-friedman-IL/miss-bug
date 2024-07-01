@@ -1,9 +1,12 @@
 .bug-list {
-    padding: 15px 0 0;
+    padding: 0;
     list-style: none;
     display: grid;
     align-items: center;
     gap: 15px;
+
+    height: 45vh;
+    overflow-y: scroll;
 }
 
 .bug-list li {
@@ -15,6 +18,23 @@
     align-items: center;
     background-image: var(--clr2bgi);
     color: var(--clr2);
+}
+
+::-webkit-scrollbar {
+    border-radius: 3em;
+}
+
+::-webkit-scrollbar-track {
+    background-image: var(--clr2bgi);
+}
+
+::-webkit-scrollbar-thumb {
+    background: rgb(55, 71, 77);
+    border-radius: 6px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #679fcf;
 }
 
 @media (width <= 600px) {

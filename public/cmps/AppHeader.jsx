@@ -1,4 +1,4 @@
-const {Link, NavLink } = ReactRouterDOM
+const { Link, NavLink } = ReactRouterDOM
 const { useNavigate } = ReactRouter
 const { useState } = React
 
@@ -27,15 +27,14 @@ export function AppHeader() {
         setUser(user)
         // navigate('/')
     }
-    console.log('user:', user)
+
     return (
         <header className="main-layout">
             <section className="header-container">
                 <UserMsg />
                 <h1>Bugs are Forever</h1>
                 <nav>
-                    <NavLink to="/">Home</NavLink> |<NavLink to="/bug">Bugs</NavLink> |
-                    <NavLink to="/about">About</NavLink>
+                    <NavLink to="/">Home</NavLink> |<NavLink to="/bug">Bugs</NavLink> |<NavLink to="/about">About</NavLink>
                 </nav>
             </section>
             {user ? (

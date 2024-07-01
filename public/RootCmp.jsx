@@ -1,6 +1,5 @@
 const Router = ReactRouterDOM.BrowserRouter
 const { Route, Routes } = ReactRouterDOM
-// const Router = ReactRouterDOM.HashRouter
 
 import { AppHeader } from './cmps/AppHeader.jsx'
 import { AppFooter } from './cmps/AppFooter.jsx'
@@ -22,7 +21,6 @@ export function App() {
                         <Route path={'/bug'} element={<BugIndex />} />
                         <Route path={'/bug/edit'} element={<BugEdit />} />
                         <Route path={'/bug/edit/:bugId'} element={<BugEdit />} />
-                        {/* </Route> */}
                         <Route path={'/bug/:bugId'} element={<BugDetails />} />
                         <Route path={'/about'} element={<AboutUs />} />
                         <Route path={'/user'} element={<UserProfile />} />

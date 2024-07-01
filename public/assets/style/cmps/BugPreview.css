@@ -1,16 +1,13 @@
-.car-preview {
-    text-align: center;
-    padding: 0.3em;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+.bug-preview {
 }
 
-.car-preview h4 {
-    text-transform: capitalize;
-    color: black;
+.bug-preview h4 {
 }
 
-.car-preview img {
-    max-width: 100px;
+.bug-preview a{
+    transition: .5s;
+}
+
+.bug-preview a:hover {
+    color: lightblue;
 }

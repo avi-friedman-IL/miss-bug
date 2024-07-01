@@ -7,12 +7,14 @@
 
     padding: 1em;
     border-radius: 3em;
+    /* background-color: inherit; */
     background-image: var(--clr2bgi);
     color: var(--clr2);
 }
 
-.bug-filter input,select {
-    padding: .5em;
+.bug-filter input,
+select {
+    padding: 0.5em;
     border: 0;
     border-radius: 3em;
 }
@@ -21,9 +23,28 @@
     outline: none;
 }
 
-@media(width <= 1050px) {
+.labels-filter input[type='checkbox'] {
+    display: none;
+}
+
+.labels-filter label {
+    margin-inline-start: 0.3em;
+    padding: 0.3em;
+    border-radius: 0.3em;
+
+    font-size: 1em;
+    background-color: #b5b5b5;
+    color: #ececec;
+    cursor: pointer;
+}
+
+.labels-filter label:has(:checked) {
+    background-color: rgb(142, 181, 232);
+    color: white;
+}
+
+@media (width <= 1050px) {
     .labels-filter {
         grid-row: 2;
     }
 }
-

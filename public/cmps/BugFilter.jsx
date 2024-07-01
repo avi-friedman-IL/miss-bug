@@ -31,32 +31,16 @@ export function BugFilter({ filterBy, onSetFilterBy, labels: availableLabels }) 
         setFilterByToEdit(prevFilter => ({
             ...prevFilter,
             pageIdx: 0,
-            labels: isChecked
-                ? [...prevFilter.labels, label]
-                : prevFilter.labels.filter(lbl => lbl !== label),
+            labels: isChecked ? [...prevFilter.labels, label] : prevFilter.labels.filter(lbl => lbl !== label),
         }))
     }
 
     const { txt, minSeverity, labels } = filterByToEdit
     return (
         <section className="bug-filter">
-            <input
-                onChange={handelChange}
-                value={txt}
-                type="text"
-                name="txt"
-                id="txt"
-                placeholder="search in titles"
-            />
+            <input onChange={handelChange} value={txt} type="text" name="txt" id="txt" placeholder="search in titles" />
 
-            <input
-                onChange={handelChange}
-                value={minSeverity}
-                type="number"
-                name="minSeverity"
-                id="minSeverity"
-                placeholder="min severity"
-            />
+            <input onChange={handelChange} value={minSeverity} type="number" name="minSeverity" id="minSeverity" placeholder="min severity" />
 
             <div className="">
                 <select name="sortBy" id="" onChange={handelChange}>
@@ -69,15 +53,9 @@ export function BugFilter({ filterBy, onSetFilterBy, labels: availableLabels }) 
             </div>
 
             <div className="labels-filter">
-            {/* <h3>labels:</h3> */}
                 {availableLabels.map(label => (
                     <label key={label}>
-                        <input
-                            type="checkbox"
-                            name={label}
-                            checked={labels.includes(label)}
-                            onChange={handleLabelChange}
-                        />
+                        <input type="checkbox" name={label} checked={labels.includes(label)} onChange={handleLabelChange} />
                         {label}
                     </label>
                 ))}

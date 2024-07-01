@@ -1,6 +1,4 @@
-
 import { storageService } from './async-storage.service.js'
-import { utilService } from './util.service.js'
 
 const STORAGE_KEY = 'bugDB'
 
@@ -10,7 +8,6 @@ export const bugService = {
     save,
     remove,
 }
-
 
 function query() {
     return storageService.query(STORAGE_KEY)

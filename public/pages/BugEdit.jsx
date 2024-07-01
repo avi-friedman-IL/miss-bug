@@ -53,7 +53,6 @@ export function BugEdit() {
         setBug(prevBug => ({ ...prevBug, [name]: value.split(',') }))
     }
 
-    // if (!bug) return
     const { title, severity, labels } = bug
     return (
         <section className="bug-edit">

@@ -1,5 +1,5 @@
 const { useState, useEffect, useRef } = React
-const { Link, useNavigate } = ReactRouterDOM
+const { Link } = ReactRouterDOM
 
 import { showSuccessMsg, showErrorMsg } from '../services/event-bus.service.js'
 import { bugService } from '../services/bug.service.js'
@@ -7,7 +7,6 @@ import { BugList } from '../cmps/BugList.jsx'
 import { BugFilter } from '../cmps/BugFilter.jsx'
 import { utilService } from '../services/util.service.js'
 import { GetPageBugs } from '../cmps/GetPageBugs.jsx'
-import { BugEdit } from './BugEdit.jsx'
 
 export function BugIndex() {
     const [bugs, setBugs] = useState([])
@@ -15,8 +14,6 @@ export function BugIndex() {
     const [filterBy, setFilterBy] = useState(bugService.getDefaultFilter())
 
     const debouncedSetFilterBy = useRef(utilService.debounce(onSetFilterBy, 500))
-
-    const navigate = useNavigate()
 
     useEffect(() => {
         loadLabels()
@@ -47,7 +44,6 @@ export function BugIndex() {
         bugService
             .remove(bugId)
             .then(() => {
-                console.log('Deleted Successfully!')
                 setBugs(prevBugs => prevBugs.filter(bug => bug._id !== bugId))
                 showSuccessMsg('Bug removed')
             })

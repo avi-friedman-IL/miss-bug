@@ -1,7 +1,15 @@
 .bug-details {
-    margin: 100px auto;
+    margin: 80px auto;
     display: grid;
-    
+
     font-size: 1.5em;
-    color: var(--clr1);
+    color: gray;
+}
+
+.bug-details a {
+    transition: .5s;
+}
+
+.bug-details a:hover {
+    color: lightblue;
 }

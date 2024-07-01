@@ -25,6 +25,7 @@ export function BugDetails() {
     if (!bug) return <h1>loadings....</h1>
     return (
         <section className='bug-details'>
+            <Link to='/bug'>Back to List</Link>
             <h3>Bug Details {bugSymbols[utilService.getRandomIntInclusive(0, bugSymbols.length)]}</h3>
             <h3>name: {bug.owner.fullName}</h3>
             <h4>title: {bug.title}</h4>
@@ -33,7 +34,6 @@ export function BugDetails() {
                 Severity: <span>{bug.severity}</span>
             </p>
             <p>labels: {bug.labels.join(', ')}</p>
-            <Link to='/bug'>Back to List</Link>
         </section>
     )
 }
